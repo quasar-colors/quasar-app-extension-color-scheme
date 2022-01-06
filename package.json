@@ -1,0 +1,7 @@
+{
+  "name": "quasar-app-extension-color-scheme",
+  "version": "0.0.1",
+  "description": "Generate nice, pretty color schemes for Quasar project",
+  "license": "MIT",
+  "main": "src/index.js"
+}
