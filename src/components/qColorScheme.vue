@@ -43,7 +43,7 @@
           backgroundColor: hex,
         }"
         :dark="isDark(hex)"
-        :label="$t('Color')"
+        label="Color"
       >
         <template v-slot:append>
           <q-icon name="colorize" class="cursor-pointer">
@@ -61,7 +61,7 @@
         borderless 
         filled 
         v-model="variation" 
-        :options="[$t('Default'), $t('Pastel')]" label="Variation" 
+        :options="['Default', 'Pastel']" label="Variation" 
         class="q-mb-sm"
       />
       <!-- Generated colors -->
