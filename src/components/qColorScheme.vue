@@ -5,7 +5,7 @@
       v-model="tab"
       align="left"
       dense
-      class="q-mb-md text-primary"
+      class="q-mb-md text-blue-grey-7"
     >
       <q-tab :ripple="false" name="manual" label="Manual" />
       <q-tab :ripple="false" name="generator" label="Generator" />
@@ -94,7 +94,7 @@
       <q-btn 
         unelevated
         label="Export"
-        color="accent"
+        color="blue-grey-7"
         @click="openExportDialog('scss')"
         :text-color="darkColors.accent ? 'white' : 'dark'"
       />
@@ -108,7 +108,7 @@
             v-model="exportTab"
             align="left"
             dense
-            class="text-primary"
+            class="text-blue-grey-7"
           >
             <q-tab 
               v-for="(name, key) in exportModes"
@@ -126,8 +126,8 @@
         </q-card-section>
         <!-- Dialog actions-->
         <q-card-actions align="right" class="q-px-md">
-          <q-btn flat label="Copy" color="primary" :icon-right="copyIcon" @click="copy(code(exportTab))" />
-          <q-btn flat label="Close" color="primary" icon-right="close" v-close-popup />
+          <q-btn flat label="Copy" color="blue-grey-7" :icon-right="copyIcon" @click="copy(code(exportTab))" />
+          <q-btn flat label="Close" color="blue-grey-7" icon-right="close" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
