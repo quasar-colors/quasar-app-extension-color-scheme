@@ -94,7 +94,10 @@
       </div>
     </div>
     <!-- Export button -->
-    <div class="text-right q-mt-md">
+    <div 
+      v-if="tab === 'manual'"
+      class="text-right q-mt-md"
+    >
       <q-btn 
         unelevated
         label="Export"
