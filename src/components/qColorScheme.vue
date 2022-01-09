@@ -34,36 +34,30 @@
     <!-- Generator tab -->
     <div v-if="tab === 'generator'">
       <!-- Color picker -->
-      <q-input
-        borderless
-        filled
-        v-model="hex"
-        class="q-mb-sm"
-        :style="{
-          backgroundColor: hex,
-        }"
-        :dark="isDark(hex)"
-        label="Color"
-      >
-        <template v-slot:append>
-          <q-icon name="colorize" class="cursor-pointer">
-            <q-popup-proxy transition-show="scale" transition-hide="scale">
-              <q-color 
-                v-model="hex" 
-                :palette="palette"
-              />
-            </q-popup-proxy>
-          </q-icon>
-        </template>
-      </q-input>
-      <!-- Variation field -->
-      <q-select 
-        borderless 
-        filled 
-        v-model="variation" 
-        :options="['Default', 'Pastel']" label="Variation" 
-        class="q-mb-sm"
+      <q-slider 
+        v-model="hue" 
+        :min="0" 
+        :max="360"
+        color="blue-grey-7"
+        class="q-px-sm q-pt-lg"
+        label
+        label-always
+        :label-value="`HUE ${hue}`"
       />
+      <!-- Variation field -->
+      <q-btn-group
+        rounded
+        spread
+        class="q-mb-md"
+      >
+        <q-btn
+          v-for="(name, key) in ['Default', 'Pastel']"
+          :key="key"
+          :color="variation === name ? 'blue-grey-7' : 'blue-grey-5'"
+          :label="name"
+          @click="variation = name"
+        />
+      </q-btn-group>
       <!-- Generated colors -->
       <q-card
         flat
@@ -75,17 +69,21 @@
         :class="`q-mb-sm q-pa-sm text-center text-${isDark(color) ? 'white' : 'black'} cursor-pointer`"
       >
         <!-- Generated colors menu -->
-        <q-menu>
-          <q-list 
-            v-for="(c, name) in brandColors"
-            :key="name"
+        <q-popup-proxy>
+          <q-list
             style="min-width: 100px"
           >
-            <q-item clickable v-close-popup @click="setColor(name, `#${color}`)">
+            <q-item
+              v-for="(c, name) in brandColors"
+              :key="name"
+              clickable 
+              @click="setColor(name, `#${color}`)"
+              v-close-popup
+            >
               <q-item-section>Set as {{ name }} color</q-item-section>
             </q-item>
           </q-list>
-        </q-menu>
+        </q-popup-proxy>
         #{{ color }}
       </q-card>
     </div>
@@ -182,8 +180,8 @@ export default {
       },
       // export tab 
       exportTab: 'sass',
-      // color used by generator 
-      hex: getCssVar('primary'),
+      // hue
+      hue: 0,
       // generated scheme
       scheme: [],
       // scheme variation
@@ -262,7 +260,7 @@ export default {
     /**
      * Update generated colors 
      */
-    hex() {
+    hue() {
       this.setScheme()
     },
     /**
@@ -370,7 +368,7 @@ export default {
      */
     setScheme() {
       var scheme = new colorScheme
-      this.scheme = scheme.from_hex(toRaw(this.hex).substring(1))
+      this.scheme = scheme.from_hue(this.hue)
         .scheme('tetrade')
         .variation(toRaw(this.variation).toLowerCase())
         .colors()
