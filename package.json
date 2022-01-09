@@ -1,8 +1,12 @@
 {
   "name": "quasar-app-extension-color-scheme",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generate nice, pretty color schemes for Quasar project",
-  "keywords": ["quasar", "quasar-framework", "quasar-app-extension"],
+  "keywords": [
+    "quasar",
+    "quasar-framework",
+    "quasar-app-extension"
+  ],
   "homepage": "https://quasar-colors.github.io",
   "repository": "github:quasar-colors/quasar-app-extension-color-scheme",
   "license": "MIT",
