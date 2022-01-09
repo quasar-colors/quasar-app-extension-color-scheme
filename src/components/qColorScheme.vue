@@ -26,6 +26,7 @@
             no-header-tabs
             default-view="palette"
             :palette="palette"
+            v-close-popup
           />
         </q-popup-proxy>
         {{ name }}
