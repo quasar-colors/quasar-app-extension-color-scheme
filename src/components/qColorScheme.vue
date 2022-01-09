@@ -59,33 +59,39 @@
         />
       </q-btn-group>
       <!-- Generated colors -->
-      <q-card
-        flat
-        v-for="(color, key) in scheme"
-        :key="key"
-        :style="{
-          backgroundColor: `#${color}`
-        }"
-        :class="`q-mb-sm q-pa-sm text-center text-${isDark(color) ? 'white' : 'black'} cursor-pointer`"
-      >
-        <!-- Generated colors menu -->
-        <q-popup-proxy>
-          <q-list
-            style="min-width: 100px"
+      <div class="row q-col-gutter-xs">
+        <div
+          v-for="(color, key) in scheme"
+          :key="key"
+          class="col-6"
+        >
+          <q-card
+            flat
+            :style="{
+              backgroundColor: `#${color}`
+            }"
+            :class="`q-pa-sm text-center text-${isDark(color) ? 'white' : 'black'} cursor-pointer`"
           >
-            <q-item
-              v-for="(c, name) in brandColors"
-              :key="name"
-              clickable 
-              @click="setColor(name, `#${color}`)"
-              v-close-popup
-            >
-              <q-item-section>Set as {{ name }} color</q-item-section>
-            </q-item>
-          </q-list>
-        </q-popup-proxy>
-        #{{ color }}
-      </q-card>
+            <!-- Generated colors menu -->
+            <q-popup-proxy>
+              <q-list
+                style="min-width: 100px"
+              >
+                <q-item
+                  v-for="(c, name) in brandColors"
+                  :key="name"
+                  clickable 
+                  @click="setColor(name, `#${color}`)"
+                  v-close-popup
+                >
+                  <q-item-section>Set as {{ name }} color</q-item-section>
+                </q-item>
+              </q-list>
+            </q-popup-proxy>
+            #{{ color }}
+          </q-card>
+        </div>
+      </div>
     </div>
     <!-- Export button -->
     <div class="text-right q-mt-md">
@@ -378,7 +384,6 @@ export default {
         .scheme('tetrade')
         .variation(toRaw(this.variation).toLowerCase())
         .colors()
-        .filter(c => this.isDark(c))
     },
     /**
      * Set color
