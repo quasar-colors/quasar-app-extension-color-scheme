@@ -134,7 +134,7 @@
 
 <script>
 import { toRaw } from 'vue'
-import { colors, copyToClipboard, getCssVar, setCssVar } from 'quasar'
+import { colors, copyToClipboard, getCssVar, SessionStorage, setCssVar } from 'quasar'
 import colorScheme from 'color-scheme'
 const { brightness, getPaletteColor } = colors
 
@@ -261,12 +261,18 @@ export default {
      * Update generated colors 
      */
     hue() {
+      // save to the storage
+      SessionStorage.set('quasar-app-extension-color-scheme-hue', this.hue)
+      // set scheme
       this.setScheme()
     },
     /**
      * Update generated scheme
      */
     variation() {
+      // save to the storage
+      SessionStorage.set('quasar-app-extension-color-scheme-variation', this.variation)
+      // set scheme
       this.setScheme()
     }
   },
@@ -394,10 +400,16 @@ export default {
    * Mounted
    */
   mounted() {
+    // read colors from Quasar
     Object.keys(toRaw(this.brandColors)).forEach(name => {
       this.brandColors[name] = getCssVar(name).toLowerCase()
     })
+    // read generator settings from the storage
+    this.hue = SessionStorage.getItem('quasar-app-extension-color-scheme-hue') || 0
+    this.variation = SessionStorage.getItem('quasar-app-extension-color-scheme-variation') || 'Default'
+    // set scheme
     this.setScheme()
+    // set darkness
     this.setDarkness()
   },
 }
